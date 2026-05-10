@@ -1,75 +1,159 @@
-# 🏥 Hospital OPD Management System
+# Hospital OPD Queue Manager
 
-A console-based Hospital OPD (Outpatient Department) Management System developed in **C++** using **Data Structures** like **Circular Queue** and **Deque** to efficiently manage patient flow in a hospital.
+A simple C++ project that manages hospital OPD patient queues using:
 
-This project simulates real-world OPD operations such as patient registration, emergency handling, VIP priority management, token generation, and queue-based patient servicing.
+* **Circular Queue** for General Patients
+* **Deque** for VIP and Emergency Patients
 
----
-
-# 🚀 Features
-
-## 👨‍⚕️ Patient Management
-- Add General Patients
-- Add VIP Patients
-- Add Emergency Patients
-- Auto-generated Patient IDs
-- Auto-generated Token Numbers
-
-## 📋 Queue Management
-- Circular Queue for General Patients
-- Deque for Priority Patients
-- Emergency patients handled with highest priority
-- VIP patients handled before general patients
-
-## 🔍 Search Functionality
-- Search patients using Token Number
-- Displays complete patient details
-
-## ⏳ Waiting Time Estimation
-- Calculates estimated waiting time
-- Based on total patients in queue
-
-## 📊 Queue Statistics
-- Display all patient queues
-- Count total waiting patients
-- Separate counts for:
-  - Priority Patients
-  - General Patients
-
-## 🩺 Patient Serving System
-- Emergency patients served first
-- VIP patients served second
-- General patients served afterward
+This project demonstrates queue data structures and patient management operations.
 
 ---
 
-# 🧠 Data Structures Used
+# Features
 
-| Data Structure | Purpose |
-|----------------|---------|
-| Circular Queue | Manage General Patients |
-| Deque | Manage VIP & Emergency Patients |
+## General Queue (Circular Queue)
+
+* Register General Patients
+* FIFO queue handling
+
+## Priority Queue (Deque)
+
+* Add Emergency Patients at Front
+* Add VIP Patients at Rear
+* Serve priority patients first
+
+## Additional Features
+
+* Display all queues
+* Count total patients
+* Search patient by token number
+* Estimate waiting time
 
 ---
 
-# 🛠️ Technologies Used
+# Technologies Used
 
-- C++
-- Object-Oriented Programming (OOP)
-- Dynamic Memory Allocation
-- Queue Data Structure
-- Deque Data Structure
-- VS Code
-- Git & GitHub
+* C++
+* Object Oriented Programming
+* Arrays
+* Circular Queue
+* Deque
 
 ---
 
-# 📂 Project Structure
+# Project Structure
+
+| Member | Work                                     |
+| ------ | ---------------------------------------- |
+| P1     | Circular Queue Implementation            |
+| P2     | Deque Implementation                     |
+| P3     | Patient Registration & Queue Integration |
+| P4     | Display, Search, Count & Waiting Time    |
+
+---
+
+# Menu Options
+
+```text
+1. Register General Patient
+2. Register VIP Patient
+3. Register Emergency Patient
+4. Call Next Patient
+5. Display All Queues
+6. Count Patients
+7. Waiting Time Estimate
+8. Search Patient By Token
+9. Exit
+```
+
+---
+
+# How to Run
+
+## Compile
 
 ```bash
-Hospital-OPD-Management-System/
-│
-├── main.cpp
-├── README.md
+clang++ hospital-opd-management.cpp -o opd
+```
 
---- 
+## Run
+
+```bash
+./opd
+```
+
+---
+
+# Data Structures Used
+
+## Circular Queue
+
+Used for:
+
+* General Patients
+
+Operations:
+
+* Enqueue
+* Dequeue
+* Display
+* Count
+* Search
+
+## Deque
+
+Used for:
+
+* VIP Patients
+* Emergency Patients
+
+Operations:
+
+* Insert Front
+* Insert Rear
+* Delete Front
+* Display
+* Count
+* Search
+
+---
+
+# Waiting Time Logic
+
+Estimated waiting time:
+
+```text
+Waiting Time = Total Patients × 5 Minutes
+```
+
+---
+
+# Sample Output
+
+```text
+========== NOW SERVING ==========
+Patient ID : 1
+Token No   : 100
+Name       : Rahul
+Age        : 25
+Type       : Emergency
+=================================
+```
+
+---
+
+# Learning Outcomes
+
+* Implementation of Circular Queue
+* Implementation of Deque
+* Queue Management System Design
+* OOP Concepts in C++
+* Input Validation
+* Traversal Operations
+
+---
+
+# Author
+
+Hospital OPD Queue Manager Team Project
+C++ Data Structures Mini Project
