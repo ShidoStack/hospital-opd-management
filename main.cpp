@@ -1,11 +1,13 @@
+
+
 #include <iostream>
 #include <string>
+#include <limits>
 
 using namespace std;
 
-// ======================================================
-//                    PATIENT STRUCT
-// ======================================================
+
+//                      PATIENT STRUCT
 
 struct Patient {
 
@@ -13,20 +15,22 @@ struct Patient {
     int tokenNo;
     string name;
     int age;
-    string disease;
     string type;
-    int roomNo;
 };
 
-// ======================================================
-//                CIRCULAR QUEUE
-// ======================================================
+
+//                 P1 MEMBER WORK
+//          CIRCULAR QUEUE IMPLEMENTATION
+
 
 class CircularQueue {
 
 private:
 
-    int front, rear, size, capacity;
+    int front;
+    int rear;
+    int size;
+    int capacity;
 
     Patient* arr;
 
@@ -37,7 +41,8 @@ public:
 
         capacity = cap;
 
-        front = rear = -1;
+        front = -1;
+        rear = -1;
 
         size = 0;
 
@@ -50,34 +55,29 @@ public:
         delete[] arr;
     }
 
-    // Check Empty
+    // Check Queue Empty
     bool isEmpty() {
 
         return size == 0;
     }
 
-    // Check Full
+    // Check Queue Full
     bool isFull() {
 
         return size == capacity;
     }
 
-    // Get Queue Size
-    int getSize() {
-
-        return size;
-    }
-
-    // Add Patient
+    // Add General Patient
     void enqueue(Patient p) {
 
         if (isFull()) {
 
-            cout << "\n❌ General Queue Full!\n";
+            cout << "\nGeneral Queue Full!\n";
 
             return;
         }
 
+        // First element
         if (isEmpty()) {
 
             front = 0;
@@ -89,11 +89,9 @@ public:
 
         size++;
 
-        cout << "\n✅ General Patient Added Successfully\n";
+        cout << "\nGeneral Patient Registered Successfully\n";
 
-        cout << "Patient ID  : " << p.id << endl;
-
-        cout << "Token Number: " << p.tokenNo << endl;
+        cout << "Token Number : " << p.tokenNo << endl;
     }
 
     // Remove Patient
@@ -101,11 +99,12 @@ public:
 
         if (isEmpty()) {
 
-            return {-1, -1, "", 0, "", "", 0};
+            return {-1, -1, "", 0, ""};
         }
 
         Patient temp = arr[front];
 
+        // Only one element
         if (front == rear) {
 
             front = rear = -1;
@@ -125,7 +124,7 @@ public:
 
         if (isEmpty()) {
 
-            cout << "\n📭 General Queue Empty\n";
+            cout << "\nGeneral Queue Empty\n";
 
             return;
         }
@@ -140,9 +139,7 @@ public:
             cout << "\nToken No   : " << arr[i].tokenNo;
             cout << "\nName       : " << arr[i].name;
             cout << "\nAge        : " << arr[i].age;
-            cout << "\nDisease    : " << arr[i].disease;
             cout << "\nType       : " << arr[i].type;
-            cout << "\nRoom No    : " << arr[i].roomNo;
 
             cout << "\n-----------------------------------";
 
@@ -152,8 +149,25 @@ public:
         cout << endl;
     }
 
-    // Search By Token
-    bool searchPatientByToken(int searchToken) {
+    // Count Patients Using O(n) Traversal
+    int countPatientsTraversal() {
+
+        int countPatients = 0;
+
+        int i = front;
+
+        for (int count = 0; count < size; count++) {
+
+            countPatients++;
+
+            i = (i + 1) % capacity;
+        }
+
+        return countPatients;
+    }
+
+    // Search Patient By Token
+    bool searchPatientByToken(int token) {
 
         if (isEmpty()) {
 
@@ -164,19 +178,15 @@ public:
 
         for (int count = 0; count < size; count++) {
 
-            if (arr[i].tokenNo == searchToken) {
+            if (arr[i].tokenNo == token) {
 
-                cout << "\n========== PATIENT FOUND ==========\n";
+                cout << "\nPatient Found In General Queue\n";
 
                 cout << "Patient ID : " << arr[i].id << endl;
                 cout << "Token No   : " << arr[i].tokenNo << endl;
                 cout << "Name       : " << arr[i].name << endl;
                 cout << "Age        : " << arr[i].age << endl;
-                cout << "Disease    : " << arr[i].disease << endl;
                 cout << "Type       : " << arr[i].type << endl;
-                cout << "Room No    : " << arr[i].roomNo << endl;
-
-                cout << "===================================\n";
 
                 return true;
             }
@@ -188,15 +198,19 @@ public:
     }
 };
 
-// ======================================================
-//                        DEQUE
-// ======================================================
+
+//                  P2 MEMBER WORK
+//                  DEQUE IMPLEMENTATION
+
 
 class Deque {
 
 private:
 
-    int front, rear, size, capacity;
+    int front;
+    int rear;
+    int size;
+    int capacity;
 
     Patient* arr;
 
@@ -207,7 +221,8 @@ public:
 
         capacity = cap;
 
-        front = rear = -1;
+        front = -1;
+        rear = -1;
 
         size = 0;
 
@@ -232,22 +247,17 @@ public:
         return size == capacity;
     }
 
-    // Get Size
-    int getSize() {
-
-        return size;
-    }
-
-    // Emergency Patient
+    // Add Emergency Patient At Front
     void insertFront(Patient p) {
 
         if (isFull()) {
 
-            cout << "\n❌ Priority Queue Full!\n";
+            cout << "\nPriority Queue Full!\n";
 
             return;
         }
 
+        // First element
         if (isEmpty()) {
 
             front = rear = 0;
@@ -261,23 +271,22 @@ public:
 
         size++;
 
-        cout << "\n🚑 Emergency Patient Added Successfully\n";
+        cout << "\nEmergency Patient Added Successfully\n";
 
-        cout << "Patient ID  : " << p.id << endl;
-
-        cout << "Token Number: " << p.tokenNo << endl;
+        cout << "Token Number : " << p.tokenNo << endl;
     }
 
-    // VIP Patient
+    // Add VIP Patient At Rear
     void insertRear(Patient p) {
 
         if (isFull()) {
 
-            cout << "\n❌ Priority Queue Full!\n";
+            cout << "\nPriority Queue Full!\n";
 
             return;
         }
 
+        // First element
         if (isEmpty()) {
 
             front = rear = 0;
@@ -291,23 +300,22 @@ public:
 
         size++;
 
-        cout << "\n⭐ VIP Patient Added Successfully\n";
+        cout << "\nVIP Patient Added Successfully\n";
 
-        cout << "Patient ID  : " << p.id << endl;
-
-        cout << "Token Number: " << p.tokenNo << endl;
+        cout << "Token Number : " << p.tokenNo << endl;
     }
 
-    // Serve Patient
+    // Serve Patient From Front
     Patient deleteFront() {
 
         if (isEmpty()) {
 
-            return {-1, -1, "", 0, "", "", 0};
+            return {-1, -1, "", 0, ""};
         }
 
         Patient temp = arr[front];
 
+        // One element
         if (front == rear) {
 
             front = rear = -1;
@@ -327,7 +335,7 @@ public:
 
         if (isEmpty()) {
 
-            cout << "\n📭 Priority Queue Empty\n";
+            cout << "\nPriority Queue Empty\n";
 
             return;
         }
@@ -342,9 +350,7 @@ public:
             cout << "\nToken No   : " << arr[i].tokenNo;
             cout << "\nName       : " << arr[i].name;
             cout << "\nAge        : " << arr[i].age;
-            cout << "\nDisease    : " << arr[i].disease;
             cout << "\nType       : " << arr[i].type;
-            cout << "\nRoom No    : " << arr[i].roomNo;
 
             cout << "\n-----------------------------------";
 
@@ -354,8 +360,25 @@ public:
         cout << endl;
     }
 
-    // Search By Token
-    bool searchPatientByToken(int searchToken) {
+    // Count Patients Using O(n)
+    int countPatientsTraversal() {
+
+        int countPatients = 0;
+
+        int i = front;
+
+        for (int count = 0; count < size; count++) {
+
+            countPatients++;
+
+            i = (i + 1) % capacity;
+        }
+
+        return countPatients;
+    }
+
+    // Search Patient By Token
+    bool searchPatientByToken(int token) {
 
         if (isEmpty()) {
 
@@ -366,19 +389,15 @@ public:
 
         for (int count = 0; count < size; count++) {
 
-            if (arr[i].tokenNo == searchToken) {
+            if (arr[i].tokenNo == token) {
 
-                cout << "\n========== PATIENT FOUND ==========\n";
+                cout << "\nPatient Found In Priority Queue\n";
 
                 cout << "Patient ID : " << arr[i].id << endl;
                 cout << "Token No   : " << arr[i].tokenNo << endl;
                 cout << "Name       : " << arr[i].name << endl;
                 cout << "Age        : " << arr[i].age << endl;
-                cout << "Disease    : " << arr[i].disease << endl;
                 cout << "Type       : " << arr[i].type << endl;
-                cout << "Room No    : " << arr[i].roomNo << endl;
-
-                cout << "===================================\n";
 
                 return true;
             }
@@ -390,15 +409,77 @@ public:
     }
 };
 
-// ======================================================
-//                        MAIN
-// ======================================================
+
+//                  P3 MEMBER WORK
+//          PATIENT REGISTRATION & INTEGRATION
+
+
+// Input Validation Function
+int getValidInteger() {
+
+    int value;
+
+    while (!(cin >> value)) {
+
+        cout << "\nInvalid Input! Enter Numbers Only: ";
+
+        cin.clear();
+
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+
+    return value;
+}
+
+// Create Patient Function
+Patient createPatient(int& patientID,
+                    int& tokenNo,
+                    string patientType) {
+
+    Patient p;
+
+    p.id = patientID++;
+
+    p.tokenNo = tokenNo++;
+
+    p.type = patientType;
+
+    cin.ignore();
+
+    cout << "\nEnter Patient Name: ";
+
+    getline(cin, p.name);
+
+    cout << "Enter Age: ";
+
+    p.age = getValidInteger();
+
+    return p;
+}
+
+
+//                  P4 MEMBER WORK
+//          DISPLAY + COUNT + SEARCH + WAITING TIME
+
+
+// Waiting Time Estimate
+void waitingTimeEstimate(int totalPatients) {
+
+    int waitingTime = totalPatients * 5;
+
+    cout << "\nEstimated Waiting Time : ";
+
+    cout << waitingTime << " Minutes\n";
+}
+
+
+//                        MAIN FUNCTION
 
 int main() {
 
-    CircularQueue generalQ(10);
+    CircularQueue generalQueue(10);
 
-    Deque priorityQ(10);
+    Deque priorityQueue(10);
 
     int choice;
 
@@ -409,269 +490,207 @@ int main() {
     while (true) {
 
         cout << "\n\n=====================================\n";
-        cout << "        🏥 HOSPITAL OPD SYSTEM\n";
+        cout << "      HOSPITAL OPD QUEUE SYSTEM\n";
         cout << "=====================================\n";
 
-        cout << "1. Add General Patient\n";
-        cout << "2. Add VIP Patient\n";
-        cout << "3. Add Emergency Patient\n";
-        cout << "4. Serve Next Patient\n";
+        cout << "1. Register General Patient\n";
+        cout << "2. Register VIP Patient\n";
+        cout << "3. Register Emergency Patient\n";
+        cout << "4. Call Next Patient\n";
         cout << "5. Display All Queues\n";
         cout << "6. Count Patients\n";
         cout << "7. Waiting Time Estimate\n";
-        cout << "8. Search Patient By Token Number\n";
+        cout << "8. Search Patient By Token\n";
         cout << "9. Exit\n";
 
         cout << "\nEnter Choice: ";
 
-        cin >> choice;
-
-        cin.ignore();
-
-        Patient p;
+        choice = getValidInteger();
 
         switch (choice) {
 
-        // ==================================================
-        // ADD GENERAL PATIENT
-        // ==================================================
+        
+        // GENERAL PATIENT
 
-        case 1:
+        case 1: {
 
-            p.id = patientID++;
+            Patient p =
+                createPatient(patientID,
+                            tokenNo,
+                            "General");
 
-            p.tokenNo = tokenNo++;
-
-            p.roomNo = 101;
-
-            p.type = "General";
-
-            cout << "Enter Patient Name: ";
-
-            getline(cin, p.name);
-
-            cout << "Enter Age: ";
-
-            cin >> p.age;
-
-            cin.ignore();
-
-            cout << "Enter Disease/Symptoms: ";
-
-            getline(cin, p.disease);
-
-            generalQ.enqueue(p);
+            generalQueue.enqueue(p);
 
             break;
+        }
 
-        // ==================================================
-        // ADD VIP PATIENT
-        // ==================================================
+       
+        // VIP PATIENT
+       
+        case 2: {
 
-        case 2:
+            Patient p =
+                createPatient(patientID,
+                            tokenNo,
+                            "VIP");
 
-            p.id = patientID++;
-
-            p.tokenNo = tokenNo++;
-
-            p.roomNo = 102;
-
-            p.type = "VIP";
-
-            cout << "Enter VIP Patient Name: ";
-
-            getline(cin, p.name);
-
-            cout << "Enter Age: ";
-
-            cin >> p.age;
-
-            cin.ignore();
-
-            cout << "Enter Disease/Symptoms: ";
-
-            getline(cin, p.disease);
-
-            priorityQ.insertRear(p);
+            priorityQueue.insertRear(p);
 
             break;
+        }
 
-        // ==================================================
-        // ADD EMERGENCY PATIENT
-        // ==================================================
+        // EMERGENCY PATIENT
 
-        case 3:
+        case 3: {
 
-            p.id = patientID++;
+            Patient p =
+                createPatient(patientID,
+                            tokenNo,
+                            "Emergency");
 
-            p.tokenNo = tokenNo++;
-
-            p.roomNo = 999;
-
-            p.type = "Emergency";
-
-            cout << "Enter Emergency Patient Name: ";
-
-            getline(cin, p.name);
-
-            cout << "Enter Age: ";
-
-            cin >> p.age;
-
-            cin.ignore();
-
-            cout << "Enter Disease/Symptoms: ";
-
-            getline(cin, p.disease);
-
-            priorityQ.insertFront(p);
+            priorityQueue.insertFront(p);
 
             break;
+        }
 
-        // ==================================================
-        // SERVE PATIENT
-        // ==================================================
+
+        // CALL NEXT PATIENT
 
         case 4: {
 
             Patient served;
 
-            if (!priorityQ.isEmpty()) {
+            // Priority Queue First
+            if (!priorityQueue.isEmpty()) {
 
-                served = priorityQ.deleteFront();
+                served = priorityQueue.deleteFront();
             }
-            else if (!generalQ.isEmpty()) {
+            else if (!generalQueue.isEmpty()) {
 
-                served = generalQ.dequeue();
+                served = generalQueue.dequeue();
             }
             else {
 
-                cout << "\n❌ No Patients Waiting\n";
+                cout << "\nNo Patients Waiting\n";
 
                 break;
             }
 
-            cout << "\n===================================\n";
-            cout << "         🩺 NOW SERVING\n";
-            cout << "===================================\n";
+            cout << "\n========== NOW SERVING ==========\n";
 
             cout << "Patient ID : " << served.id << endl;
             cout << "Token No   : " << served.tokenNo << endl;
             cout << "Name       : " << served.name << endl;
-            cout << "Type       : " << served.type << endl;
             cout << "Age        : " << served.age << endl;
-            cout << "Disease    : " << served.disease << endl;
-            cout << "Room No    : " << served.roomNo << endl;
+            cout << "Type       : " << served.type << endl;
 
-            cout << "===================================\n";
+            cout << "=================================\n";
 
             break;
         }
 
-        // ==================================================
-        // DISPLAY QUEUES
-        // ==================================================
+ 
+        // DISPLAY ALL QUEUES
 
         case 5:
 
-            priorityQ.display();
+            priorityQueue.display();
 
-            generalQ.display();
+            generalQueue.display();
 
             break;
 
-        // ==================================================
+
         // COUNT PATIENTS
-        // ==================================================
 
         case 6: {
 
-            int priorityCount = priorityQ.getSize();
+            int priorityPatients =
+                priorityQueue.countPatientsTraversal();
 
-            int generalCount = generalQ.getSize();
+            int generalPatients =
+                generalQueue.countPatientsTraversal();
 
             cout << "\n========== PATIENT COUNT ==========\n";
 
             cout << "Priority Patients : "
-                 << priorityCount << endl;
+                << priorityPatients << endl;
 
             cout << "General Patients  : "
-                 << generalCount << endl;
+                << generalPatients << endl;
 
             cout << "Total Patients    : "
-                 << priorityCount + generalCount << endl;
+                << priorityPatients + generalPatients
+                << endl;
 
             break;
         }
 
-        // ==================================================
+
         // WAITING TIME
-        // ==================================================
 
         case 7: {
 
             int totalPatients =
-                priorityQ.getSize() +
-                generalQ.getSize();
+                priorityQueue.countPatientsTraversal()
+                +
+                generalQueue.countPatientsTraversal();
 
-            int waitingTime = totalPatients * 5;
-
-            cout << "\n⏳ Estimated Waiting Time : ";
-
-            cout << waitingTime << " Minutes\n";
+            waitingTimeEstimate(totalPatients);
 
             break;
         }
 
-        // ==================================================
-        // SEARCH BY TOKEN
-        // ==================================================
+
+        // SEARCH PATIENT
 
         case 8: {
 
             int searchToken;
 
-            cout << "\nEnter Token Number To Search: ";
+            cout << "\nEnter Token Number: ";
 
-            cin >> searchToken;
+            searchToken = getValidInteger();
 
             bool found = false;
 
-            // Search Priority Queue First
-            found = priorityQ.searchPatientByToken(searchToken);
+            // Search Priority Queue
+            found =
+                priorityQueue.searchPatientByToken(
+                    searchToken);
 
             // Search General Queue
             if (!found) {
 
-                found = generalQ.searchPatientByToken(searchToken);
+                found =
+                    generalQueue.searchPatientByToken(
+                        searchToken);
             }
 
             // Not Found
             if (!found) {
 
-                cout << "\n❌ PATIENT NOT FOUND\n";
+                cout << "\nPatient Not Found\n";
             }
 
             break;
         }
 
-        // ==================================================
+
         // EXIT
-        // ==================================================
 
         case 9:
 
-            cout << "\n✅ Exiting Hospital OPD System...\n";
+            cout << "\nExiting Hospital OPD System...\n";
 
             return 0;
 
-        // ==================================================
+
         // INVALID CHOICE
-        // ==================================================
 
         default:
 
-            cout << "\n❌ Invalid Choice\n";
+            cout << "\nInvalid Choice\n";
         }
     }
 
